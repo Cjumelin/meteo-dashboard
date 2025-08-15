@@ -1,0 +1,172 @@
+@import "tailwindcss";
+
+/**
+ * Weather Dashboard Design System - Tailwind CSS v4
+ * 
+ * Following the official v4 @theme directive format:
+ * https://tailwindcss.com/docs/theme
+ */
+
+@theme {
+  /* ===== COLORS ===== */
+  
+  /* Atmospheric Gray Scale (inspired by different sky conditions) */
+  --color-gray-50: #f8fafb;   /* Morning mist */
+  --color-gray-100: #f1f5f8;  /* Light fog */
+  --color-gray-200: #e2e8f0;  /* Overcast light */
+  --color-gray-300: #cbd5e1;  /* Cloudy sky */
+  --color-gray-400: #94a3b8;  /* Storm approach */
+  --color-gray-500: #64748b;  /* Evening clouds */
+  --color-gray-600: #475569;  /* Twilight */
+  --color-gray-700: #334155;  /* Deep clouds */
+  --color-gray-800: #1e293b;  /* Storm clouds */
+  --color-gray-900: #0f172a;  /* Night sky */
+  --color-gray-950: #020617;  /* Midnight */
+  
+
+  
+  /* Weather-Specific Color System */
+  
+  /* Clear Sky & Sunshine */
+  --color-weather-clear-50: #fffef7;   /* Dawn light */
+  --color-weather-clear-100: #fffbeb;  /* Morning glow */
+  --color-weather-clear-200: #fef3c7;  /* Sunrise */
+  --color-weather-clear-300: #fde68a;  /* Golden hour */
+  --color-weather-clear-400: #fbbf24;  /* Bright sun */
+  --color-weather-clear-500: #f59e0b;  /* Midday sun */
+  --color-weather-clear-600: #d97706;  /* Afternoon */
+  --color-weather-clear-700: #b45309;  /* Evening sun */
+  --color-weather-clear-800: #92400e;  /* Sunset */
+  --color-weather-clear-900: #78350f;  /* Dusk */
+  
+  /* Partly Cloudy */
+  --color-weather-partlyCloudy-50: #f0f9ff;   /* Light wisps */
+  --color-weather-partlyCloudy-100: #e0f2fe;  /* Scattered clouds */
+  --color-weather-partlyCloudy-200: #bae6fd;  /* Partly sunny */
+  --color-weather-partlyCloudy-300: #7dd3fc;  /* Mixed sky */
+  --color-weather-partlyCloudy-400: #38bdf8;  /* Cloud breaks */
+  --color-weather-partlyCloudy-500: #0ea5e9;  /* Variable */
+  --color-weather-partlyCloudy-600: #0284c7;  /* Changing */
+  --color-weather-partlyCloudy-700: #0369a1;  /* Increasing clouds */
+  --color-weather-partlyCloudy-800: #075985;  /* Mostly cloudy */
+  --color-weather-partlyCloudy-900: #0c4a6e;  /* Overcast approaching */
+  
+  /* Overcast & Cloudy */
+  --color-weather-cloudy-50: #f8fafb;   /* High clouds */
+  --color-weather-cloudy-100: #f1f5f8;  /* Thin overcast */
+  --color-weather-cloudy-200: #e2e8f0;  /* Light gray sky */
+  --color-weather-cloudy-300: #cbd5e1;  /* Overcast */
+  --color-weather-cloudy-400: #94a3b8;  /* Heavy clouds */
+  --color-weather-cloudy-500: #64748b;  /* Dark overcast */
+  --color-weather-cloudy-600: #475569;  /* Storm clouds forming */
+  --color-weather-cloudy-700: #334155;  /* Dense clouds */
+  --color-weather-cloudy-800: #1e293b;  /* Heavy overcast */
+  --color-weather-cloudy-900: #0f172a;  /* Storm approaching */
+  
+  /* Rainy Weather */
+  --color-weather-rainy-50: #f0f9ff;   /* Light rain clouds */
+  --color-weather-rainy-100: #e0f2fe;  /* Drizzle */
+  --color-weather-rainy-200: #bae6fd;  /* Light rain */
+  --color-weather-rainy-300: #7dd3fc;  /* Steady rain */
+  --color-weather-rainy-400: #38bdf8;  /* Moderate rain */
+  --color-weather-rainy-500: #0ea5e9;  /* Heavy rain */
+  --color-weather-rainy-600: #0284c7;  /* Downpour */
+  --color-weather-rainy-700: #0369a1;  /* Torrential */
+  --color-weather-rainy-800: #075985;  /* Storm rain */
+  --color-weather-rainy-900: #0c4a6e;  /* Deluge */
+  
+  /* Stormy Weather */
+  --color-weather-storm-50: #f8fafc;   /* Storm approaching */
+  --color-weather-storm-100: #f1f5f9;  /* Light storm */
+  --color-weather-storm-200: #e2e8f0;  /* Storm clouds */
+  --color-weather-storm-300: #cbd5e1;  /* Thunder clouds */
+  --color-weather-storm-400: #94a3b8;  /* Active storm */
+  --color-weather-storm-500: #64748b;  /* Heavy storm */
+  --color-weather-storm-600: #475569;  /* Severe storm */
+  --color-weather-storm-700: #334155;  /* Violent storm */
+  --color-weather-storm-800: #1e293b;  /* Extreme storm */
+  --color-weather-storm-900: #0f172a;  /* Hurricane force */
+  
+  /* Snowy Weather */
+  --color-weather-snow-50: #fefefe;    /* Light snow */
+  --color-weather-snow-100: #fefefe;   /* Gentle snow */
+  --color-weather-snow-200: #f8fafc;   /* Steady snow */
+  --color-weather-snow-300: #f1f5f9;   /* Snow shower */
+  --color-weather-snow-400: #e2e8f0;   /* Heavy snow */
+  --color-weather-snow-500: #cbd5e1;   /* Snow storm */
+  --color-weather-snow-600: #94a3b8;   /* Blizzard */
+  --color-weather-snow-700: #64748b;   /* Heavy blizzard */
+  --color-weather-snow-800: #475569;   /* Severe blizzard */
+  --color-weather-snow-900: #334155;   /* White-out conditions */
+  
+  /* Foggy Weather */
+  --color-weather-fog-50: #fafafa;     /* Light mist */
+  --color-weather-fog-100: #f5f5f5;    /* Mist */
+  --color-weather-fog-200: #e5e5e5;    /* Light fog */
+  --color-weather-fog-300: #d4d4d4;    /* Fog */
+  --color-weather-fog-400: #a3a3a3;    /* Dense fog */
+  --color-weather-fog-500: #737373;    /* Heavy fog */
+  --color-weather-fog-600: #525252;    /* Thick fog */
+  --color-weather-fog-700: #404040;    /* Very thick fog */
+  --color-weather-fog-800: #262626;    /* Pea soup fog */
+  --color-weather-fog-900: #171717;    /* Zero visibility */
+  
+  /* Windy Weather */
+  --color-weather-windy-50: #f0fdf4;   /* Light breeze */
+  --color-weather-windy-100: #dcfce7;  /* Gentle wind */
+  --color-weather-windy-200: #bbf7d0;  /* Moderate wind */
+  --color-weather-windy-300: #86efac;  /* Fresh wind */
+  --color-weather-windy-400: #4ade80;  /* Strong wind */
+  --color-weather-windy-500: #22c55e;  /* Gale */
+  --color-weather-windy-600: #16a34a;  /* Strong gale */
+  --color-weather-windy-700: #15803d;  /* Storm force wind */
+  --color-weather-windy-800: #166534;  /* Hurricane force */
+  --color-weather-windy-900: #14532d;  /* Devastating wind */
+  
+  /* ===== BACKGROUND IMAGES ===== */
+  
+  /* Sky & Atmospheric Backgrounds */
+  --background-image-clear-sky: linear-gradient(135deg, #87ceeb 0%, #98d8e8 30%, #b6e5f0 60%, #d4f1f4 100%);
+  --background-image-atmospheric-depth: linear-gradient(180deg, rgba(135, 206, 235, 0.3) 0%, rgba(70, 130, 180, 0.2) 50%, rgba(25, 25, 112, 0.1) 100%);
+  --background-image-sunny-sky: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+  --background-image-cloudy-sky: linear-gradient(135deg, #bdc3c7 0%, #2c3e50 100%);
+  --background-image-rainy-sky: linear-gradient(135deg, #667db6 0%, #0082c8 25%, #0052cc 50%, #667db6 100%);
+  --background-image-storm-sky: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #2c3e50 100%);
+  --background-image-night-sky: linear-gradient(135deg, #0c0c0c 0%, #2980b9 50%, #0c0c0c 100%);
+
+  /* ===== TYPOGRAPHY ===== */
+  
+  /* Font Families - Tailwind v4 Format */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Consolas', monospace;
+  --font-display: 'Cal Sans', 'Inter', system-ui, sans-serif;
+  --font-weather: 'Inter', system-ui, sans-serif;
+  --font-atmospheric: '"SF Pro Display"', system-ui, sans-serif;
+  
+  /* ===== BORDER RADIUS ===== */
+  
+  /* Weather-Specific Radius */
+  --radius-card: 1rem;
+  --radius-button: 0.5rem;
+  --radius-input: 0.375rem;
+  --radius-modal: 1.5rem;
+  
+  /* ===== SHADOWS ===== */
+  
+  /* Weather-Specific Shadows */
+  --shadow-glass: 0 8px 32px rgb(0 0 0 / 0.12);
+  --shadow-floating: 0 32px 64px rgb(0 0 0 / 0.12);
+  --shadow-glow: 0 0 20px rgb(59 130 246 / 0.15);
+  --shadow-card: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+
+  /* ===== TRANSITIONS ===== */
+  
+  /* Weather-Specific Transitions */
+  --ease-weather: cubic-bezier(0.23, 1, 0.32, 1);
+  
+  /* ===== BREAKPOINTS ===== */
+  
+  /* Weather-Specific Breakpoints */
+  --breakpoint-xs: 475px;
+  --breakpoint-3xl: 1920px;
+}
