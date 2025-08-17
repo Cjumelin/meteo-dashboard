@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <div 
-      class="bg-white/90 backdrop-blur-md rounded-2xl p-6 md:p-8 border border-gray-200 shadow-md"
+      class="bg-white/90 backdrop-blur-md rounded-[var(--radius-card)] p-6 md:p-8 border shadow-[var(--shadow-glass)]"
       :class="levelClasses"
     >
       <div class="text-center relative">
@@ -9,15 +9,15 @@
           {{ humidityIcon }}
         </div>
         
-        <div class="text-xl md:text-2xl font-bold text-gray-900 font-mono mb-2">
+        <div class="text-xl md:text-2xl font-bold font-mono mb-2 text-weather-cloudy-800">
           {{ humidity.humidity }}
         </div>
         
-        <div class="text-gray-600 font-weather">
+        <div class="text-weather-cloudy-600 font-weather">
           %
         </div>
         
-        <div class="text-xs text-gray-500 mt-3 font-weather">
+        <div class="text-xs text-weather-cloudy-500 mt-3 font-weather">
           Humidity
         </div>
         
@@ -30,9 +30,9 @@
         </div>
         
         <div class="mt-4 w-full" v-if="showIndicator">
-          <div class="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+          <div class="w-full h-2 bg-weather-cloudy-200 rounded-full overflow-hidden">
             <div 
-              class="h-full rounded-full"
+              class="h-full rounded-full transition-all duration-300 ease-[var(--ease-weather)]"
               :style="{ width: `${humidity.humidity}%` }"
               :class="indicatorClasses"
             ></div>
@@ -63,38 +63,38 @@ const { showIndicator, showStatus } = getHumidityDisplayOptions(props.humidity)
 // Presentation logic: Styling based on humidity level
 const levelClasses = computed(() => {
   const classMap = {
-    [HumidityLevel.Low]: 'border-yellow-200 bg-yellow-50/30',
-    [HumidityLevel.Moderate]: 'border-yellow-200 bg-yellow-50/30',
-    [HumidityLevel.Comfortable]: 'border-green-200 bg-green-50/30',
-    [HumidityLevel.High]: 'border-blue-200 bg-blue-50/30',
-    [HumidityLevel.VeryHigh]: 'border-sky-200 bg-sky-50/30'
+    [HumidityLevel.Low]: 'border-weather-clear-200 bg-weather-clear-50/30',
+    [HumidityLevel.Moderate]: 'border-weather-clear-200 bg-weather-clear-50/30',
+    [HumidityLevel.Comfortable]: 'border-weather-windy-200 bg-weather-windy-50/30',
+    [HumidityLevel.High]: 'border-weather-rainy-200 bg-weather-rainy-50/30',
+    [HumidityLevel.VeryHigh]: 'border-weather-rainy-300 bg-weather-rainy-100/30'
   }
   
-  return classMap[props.humidity.level] || 'border-gray-200 bg-gray-50/30'
+  return classMap[props.humidity.level] || 'border-weather-cloudy-200 bg-weather-cloudy-50/30'
 })
 
 const statusClasses = computed(() => {
   const classMap = {
-    [HumidityLevel.Low]: 'bg-yellow-100 text-yellow-800',
-    [HumidityLevel.Moderate]: 'bg-yellow-100 text-yellow-800',
-    [HumidityLevel.Comfortable]: 'bg-green-100 text-green-800',
-    [HumidityLevel.High]: 'bg-blue-100 text-blue-800',
-    [HumidityLevel.VeryHigh]: 'bg-sky-100 text-sky-800'
+    [HumidityLevel.Low]: 'bg-weather-clear-100 text-weather-clear-800',
+    [HumidityLevel.Moderate]: 'bg-weather-clear-100 text-weather-clear-800',
+    [HumidityLevel.Comfortable]: 'bg-weather-windy-100 text-weather-windy-800',
+    [HumidityLevel.High]: 'bg-weather-rainy-100 text-weather-rainy-800',
+    [HumidityLevel.VeryHigh]: 'bg-weather-rainy-200 text-weather-rainy-900'
   }
   
-  return classMap[props.humidity.level] || 'bg-gray-100 text-gray-800'
+  return classMap[props.humidity.level] || 'bg-weather-cloudy-100 text-weather-cloudy-800'
 })
 
 const indicatorClasses = computed(() => {
   const classMap = {
-    [HumidityLevel.Low]: 'bg-gradient-to-r from-yellow-300 to-yellow-500',
-    [HumidityLevel.Moderate]: 'bg-gradient-to-r from-yellow-300 to-yellow-500',
-    [HumidityLevel.Comfortable]: 'bg-gradient-to-r from-green-300 to-green-500',
-    [HumidityLevel.High]: 'bg-gradient-to-r from-blue-300 to-blue-500',
-    [HumidityLevel.VeryHigh]: 'bg-gradient-to-r from-sky-300 to-sky-500'
+    [HumidityLevel.Low]: 'bg-gradient-to-r from-weather-clear-300 to-weather-clear-500',
+    [HumidityLevel.Moderate]: 'bg-gradient-to-r from-weather-clear-300 to-weather-clear-500',
+    [HumidityLevel.Comfortable]: 'bg-gradient-to-r from-weather-windy-300 to-weather-windy-500',
+    [HumidityLevel.High]: 'bg-gradient-to-r from-weather-rainy-300 to-weather-rainy-500',
+    [HumidityLevel.VeryHigh]: 'bg-gradient-to-r from-weather-rainy-400 to-weather-rainy-600'
   }
   
-  return classMap[props.humidity.level] || 'bg-gradient-to-r from-gray-300 to-gray-500'
+  return classMap[props.humidity.level] || 'bg-gradient-to-r from-weather-cloudy-300 to-weather-cloudy-500'
 })
 </script>
 

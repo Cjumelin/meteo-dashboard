@@ -1,18 +1,18 @@
 <template>
-  <div class="w-full max-w-2xl mx-auto p-6 md:p-12 bg-white/95 backdrop-blur-lg rounded-3xl shadow-xl border border-gray-200">
+  <div class="w-full max-w-2xl mx-auto p-6 md:p-12 bg-white/95 backdrop-blur-lg rounded-[var(--radius-modal)] shadow-[var(--shadow-floating)] border border-weather-cloudy-200">
     <div class="text-center mb-12">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-display flex items-center justify-center gap-6">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4 font-display flex items-center justify-center gap-6 text-weather-cloudy-800">
         <span class="text-5xl">🌤️</span>
         7-Day Weather Forecast
         <span class="text-4xl">📊</span>
       </h2>
-      <p class="text-lg text-gray-600 font-atmospheric">Interactive temperature and precipitation analysis</p>
+      <p class="text-lg text-weather-cloudy-600 font-atmospheric">Interactive temperature and precipitation analysis</p>
     </div>
     
     <!-- Main Chart Area -->
-    <div class="relative h-80 md:h-96 bg-gradient-to-b from-gray-50 via-blue-50 to-gray-100 rounded-2xl p-4 md:p-8 overflow-hidden shadow-inner border border-gray-200 mb-8">
+    <div class="relative h-80 md:h-96 bg-gradient-to-b from-weather-cloudy-50 via-weather-partlyCloudy-50 to-weather-cloudy-100 rounded-[var(--radius-card)] p-4 md:p-8 overflow-hidden shadow-inner border border-weather-cloudy-200 mb-8">
       <!-- Y-axis Temperature Labels -->
-      <div class="absolute left-2 top-0 h-full flex flex-col justify-between text-sm text-gray-700 py-8 z-10">
+      <div class="absolute left-2 top-0 h-full flex flex-col justify-between text-sm text-weather-cloudy-700 py-8 z-10">
         <span 
           v-for="temp in yAxisLabels" 
           :key="temp" 
@@ -29,7 +29,7 @@
           <div 
             v-for="i in 5" 
             :key="i" 
-            class="absolute w-full border-t border-gray-300/40" 
+            class="absolute w-full border-t border-weather-cloudy-300/40" 
             :style="{ top: `${(i - 1) * 25}%` }"
           />
         </div>
@@ -88,19 +88,19 @@
             :style="{ width: `${100 / weatherData.length}%` }"
           >
             <div
-              class="bg-sky-400/70 rounded-t-lg w-4 transition-all duration-400 hover:bg-sky-500/80 hover:scale-110 shadow-sm cursor-pointer"
+              class="bg-weather-rainy-400/70 rounded-t-lg w-4 transition-all duration-400 hover:bg-weather-rainy-500/80 hover:scale-110 shadow-sm cursor-pointer"
               :style="{ 
                 height: `${getPrecipitationHeight(day.precipitation)}px`
               }"
               :title="`${day.precipitation}mm precipitation`"
             />
-            <span class="text-xs text-gray-600 font-mono mt-1 bg-white/80 rounded px-1 py-0.5 shadow-sm">{{ day.precipitation }}mm</span>
+            <span class="text-xs text-weather-cloudy-600 font-mono mt-1 bg-white/80 rounded px-1 py-0.5 shadow-sm">{{ day.precipitation }}mm</span>
           </div>
         </div>
       </div>
       
       <!-- X-axis Day Labels -->
-      <div class="absolute bottom-0 left-12 right-0 flex justify-between text-xs text-gray-700 font-medium py-2">
+      <div class="absolute bottom-0 left-12 right-0 flex justify-between text-xs text-weather-cloudy-700 font-medium py-2">
         <span 
           v-for="(day, index) in weatherData" 
           :key="`day-${index}`" 
@@ -112,19 +112,19 @@
     </div>
     
     <!-- Chart Legend -->
-    <div class="flex justify-center items-center gap-8 bg-gray-50 rounded-2xl p-6 mb-8">
+    <div class="flex justify-center items-center gap-8 bg-weather-cloudy-50 rounded-[var(--radius-card)] p-6 mb-8">
       <div class="flex items-center gap-3">
-        <div class="w-8 h-2 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full shadow-sm"></div>
-        <span class="text-sm text-gray-700 font-medium font-weather">Temperature (°C)</span>
+        <div class="w-8 h-2 bg-gradient-to-r from-weather-partlyCloudy-400 to-weather-partlyCloudy-600 rounded-full shadow-sm"></div>
+        <span class="text-sm text-weather-cloudy-700 font-medium font-weather">Temperature (°C)</span>
       </div>
       <div class="flex items-center gap-3">
-        <div class="w-6 h-6 bg-sky-400/70 rounded-lg shadow-sm"></div>
-        <span class="text-sm text-gray-700 font-medium font-weather">Precipitation (mm)</span>
+        <div class="w-6 h-6 bg-weather-rainy-400/70 rounded-lg shadow-sm"></div>
+        <span class="text-sm text-weather-cloudy-700 font-medium font-weather">Precipitation (mm)</span>
       </div>
     </div>
     
     <div class="mt-16">
-      <h3 class="text-2xl font-bold text-gray-900 text-center mb-8 font-display flex items-center justify-center gap-4">
+      <h3 class="text-2xl font-bold text-center mb-8 font-display flex items-center justify-center gap-4 text-weather-cloudy-800">
         <span class="text-3xl">🗓️</span>
         Weekly Outlook
       </h3>
@@ -134,7 +134,7 @@
           v-for="(day, index) in weatherData"
           :key="`card-${index}`"
           :class="getWeatherCardClass(day.condition)"
-          class="py-4 md:py-6 rounded-2xl text-center shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 border-2"
+          class="py-4 md:py-6 rounded-[var(--radius-card)] text-center shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-floating)] transition-all duration-300 ease-[var(--ease-weather)] hover:scale-105 border-2"
         >
           <div class="text-xs font-medium mb-3 font-atmospheric uppercase tracking-wide opacity-80">
             {{ day.day }}
@@ -224,16 +224,16 @@ const getWeatherCardClass = (condition) => {
   switch (condition.toLowerCase()) {
     case 'sunny':
     case 'clear':
-      return 'border-yellow-200 bg-gradient-to-br from-yellow-50 to-orange-50 text-orange-900 hover:from-yellow-100 hover:to-orange-100'
+      return 'border-weather-clear-200 bg-gradient-to-br from-weather-clear-50 to-weather-clear-100 text-weather-clear-900 hover:from-weather-clear-100 hover:to-weather-clear-200'
     case 'partly cloudy':
-      return 'border-blue-200 bg-gradient-to-br from-blue-50 to-sky-50 text-blue-900 hover:from-blue-100 hover:to-sky-100'
+      return 'border-weather-partlyCloudy-200 bg-gradient-to-br from-weather-partlyCloudy-50 to-weather-partlyCloudy-100 text-weather-partlyCloudy-900 hover:from-weather-partlyCloudy-100 hover:to-weather-partlyCloudy-200'
     case 'cloudy':
-      return 'border-gray-200 bg-gradient-to-br from-gray-50 to-slate-50 text-gray-900 hover:from-gray-100 hover:to-slate-100'
+      return 'border-weather-cloudy-200 bg-gradient-to-br from-weather-cloudy-50 to-weather-cloudy-100 text-weather-cloudy-900 hover:from-weather-cloudy-100 hover:to-weather-cloudy-200'
     case 'rainy':
     case 'showers':
-      return 'border-blue-300 bg-gradient-to-br from-blue-100 to-indigo-50 text-blue-900 hover:from-blue-200 hover:to-indigo-100'
+      return 'border-weather-rainy-300 bg-gradient-to-br from-weather-rainy-100 to-weather-rainy-50 text-weather-rainy-900 hover:from-weather-rainy-200 hover:to-weather-rainy-100'
     default:
-      return 'border-gray-200 bg-gradient-to-br from-gray-50 to-slate-50 text-gray-700 hover:from-gray-100 hover:to-slate-100'
+      return 'border-weather-cloudy-200 bg-gradient-to-br from-weather-cloudy-50 to-weather-cloudy-100 text-weather-cloudy-700 hover:from-weather-cloudy-100 hover:to-weather-cloudy-200'
   }
 }
 </script>

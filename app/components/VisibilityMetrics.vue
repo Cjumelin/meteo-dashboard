@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <div 
-      class="bg-white/90 backdrop-blur-md rounded-2xl p-6 md:p-8 border border-gray-200 shadow-md"
+      class="bg-white/90 backdrop-blur-md rounded-[var(--radius-card)] p-6 md:p-8 border shadow-[var(--shadow-glass)]"
       :class="clarityClasses"
     >
       <div class="text-center relative">
@@ -9,15 +9,15 @@
           {{ visibilityIcon }}
         </div>
         
-        <div class="text-xl md:text-2xl font-bold text-gray-900 font-mono mb-2">
+        <div class="text-xl md:text-2xl font-bold font-mono mb-2 text-weather-cloudy-800">
           {{ visibility.distance }}
         </div>
         
-        <div class="text-gray-600 font-weather">
+        <div class="text-weather-cloudy-600 font-weather">
           {{ visibility.distanceUnit }}
         </div>
         
-        <div class="text-xs text-gray-500 mt-3 font-weather">
+        <div class="text-xs text-weather-cloudy-500 mt-3 font-weather">
           Visibility
         </div>
         
@@ -28,24 +28,24 @@
           {{ visibility.status }}
         </div>
         
-        <div class="mt-3 p-2 md:p-3 bg-gray-50 rounded-lg" v-if="showConditions">
+        <div class="mt-3 p-2 md:p-3 bg-weather-cloudy-50 rounded-lg" v-if="showConditions">
           <div class="text-lg mb-1">
             {{ conditionsIcon }}
           </div>
-          <div class="text-xs md:text-sm text-gray-600 font-weather">
+          <div class="text-xs md:text-sm text-weather-cloudy-600 font-weather">
             {{ visibility.atmosphericConditions }}
           </div>
         </div>
         
         <div class="mt-4 w-full" v-if="showIndicator">
-          <div class="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+          <div class="w-full h-2 bg-weather-cloudy-200 rounded-full overflow-hidden">
             <div 
-              class="h-full rounded-full"
+              class="h-full rounded-full transition-all duration-300 ease-[var(--ease-weather)]"
               :style="{ width: `${visibility.visibilityPercentage}%` }"
               :class="indicatorFillClass"
             ></div>
           </div>
-          <div class="flex justify-between text-xs text-gray-500 mt-2 font-mono">
+          <div class="flex justify-between text-xs text-weather-cloudy-500 mt-2 font-mono">
             <span>0</span>
             <span>{{ visibility.maxVisibility }}{{ visibility.distanceUnit }}</span>
           </div>
@@ -75,37 +75,37 @@ const { showConditions, showIndicator } = getVisibilityDisplayOptions(props.visi
 
 const clarityClasses = computed(() => {
   const classMap = {
-    [VisibilityLevel.VeryPoor]: 'border-red-200 bg-red-50/30',
-    [VisibilityLevel.Poor]: 'border-yellow-200 bg-yellow-50/30',
-    [VisibilityLevel.Moderate]: 'border-blue-200 bg-blue-50/30',
-    [VisibilityLevel.Good]: 'border-green-200 bg-green-50/30',
-    [VisibilityLevel.Excellent]: 'border-green-300 bg-green-100/30'
+    [VisibilityLevel.VeryPoor]: 'border-weather-storm-200 bg-weather-storm-50/30',
+    [VisibilityLevel.Poor]: 'border-weather-fog-200 bg-weather-fog-50/30',
+    [VisibilityLevel.Moderate]: 'border-weather-partlyCloudy-200 bg-weather-partlyCloudy-50/30',
+    [VisibilityLevel.Good]: 'border-weather-clear-200 bg-weather-clear-50/30',
+    [VisibilityLevel.Excellent]: 'border-weather-clear-300 bg-weather-clear-100/30'
   }
   
-  return classMap[props.visibility.level] || 'border-gray-200 bg-gray-50/30'
+  return classMap[props.visibility.level] || 'border-weather-cloudy-200 bg-weather-cloudy-50/30'
 })
 
 const statusClasses = computed(() => {
   const classMap = {
-    [VisibilityLevel.VeryPoor]: 'bg-red-100 text-red-800',
-    [VisibilityLevel.Poor]: 'bg-yellow-100 text-yellow-800',
-    [VisibilityLevel.Moderate]: 'bg-blue-100 text-blue-800',
-    [VisibilityLevel.Good]: 'bg-green-100 text-green-800',
-    [VisibilityLevel.Excellent]: 'bg-green-200 text-green-900'
+    [VisibilityLevel.VeryPoor]: 'bg-weather-storm-100 text-weather-storm-800',
+    [VisibilityLevel.Poor]: 'bg-weather-fog-100 text-weather-fog-800',
+    [VisibilityLevel.Moderate]: 'bg-weather-partlyCloudy-100 text-weather-partlyCloudy-800',
+    [VisibilityLevel.Good]: 'bg-weather-clear-100 text-weather-clear-800',
+    [VisibilityLevel.Excellent]: 'bg-weather-clear-200 text-weather-clear-900'
   }
   
-  return classMap[props.visibility.level] || 'bg-gray-100 text-gray-800'
+  return classMap[props.visibility.level] || 'bg-weather-cloudy-100 text-weather-cloudy-800'
 })
 
 const indicatorFillClass = computed(() => {
   const classMap = {
-    [VisibilityLevel.VeryPoor]: 'bg-gradient-to-r from-red-300 to-red-500',
-    [VisibilityLevel.Poor]: 'bg-gradient-to-r from-yellow-300 to-yellow-500',
-    [VisibilityLevel.Moderate]: 'bg-gradient-to-r from-blue-300 to-blue-500',
-    [VisibilityLevel.Good]: 'bg-gradient-to-r from-green-300 to-green-500',
-    [VisibilityLevel.Excellent]: 'bg-gradient-to-r from-green-400 to-green-600'
+    [VisibilityLevel.VeryPoor]: 'bg-gradient-to-r from-weather-storm-300 to-weather-storm-500',
+    [VisibilityLevel.Poor]: 'bg-gradient-to-r from-weather-fog-300 to-weather-fog-500',
+    [VisibilityLevel.Moderate]: 'bg-gradient-to-r from-weather-partlyCloudy-300 to-weather-partlyCloudy-500',
+    [VisibilityLevel.Good]: 'bg-gradient-to-r from-weather-clear-300 to-weather-clear-500',
+    [VisibilityLevel.Excellent]: 'bg-gradient-to-r from-weather-clear-400 to-weather-clear-600'
   }
   
-  return classMap[props.visibility.level] || 'bg-gradient-to-r from-gray-300 to-gray-500'
+  return classMap[props.visibility.level] || 'bg-gradient-to-r from-weather-cloudy-300 to-weather-cloudy-500'
 })
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <div
-      class="bg-white/90 backdrop-blur-md rounded-2xl p-6 md:p-8 border border-gray-200 shadow-md"
+      class="bg-white/90 backdrop-blur-md rounded-[var(--radius-card)] p-6 md:p-8 border shadow-[var(--shadow-glass)]"
       :class="intensityClasses"
     >
       <div class="text-center relative">
@@ -9,21 +9,21 @@
           {{ windIcon }}
         </div>
         
-        <div class="text-xl md:text-2xl font-bold text-gray-900 font-mono mb-2">
+        <div class="text-xl md:text-2xl font-bold font-mono mb-2 text-weather-cloudy-800">
           {{ wind.speed }}
         </div>
         
-        <div class="text-gray-600 font-weather">
+        <div class="text-weather-cloudy-600 font-weather">
           {{ wind.speedUnit }}
         </div>
         
-        <div class="text-xs text-gray-500 mt-3 font-weather">
+        <div class="text-xs text-weather-cloudy-500 mt-3 font-weather">
           {{ wind.direction }} Wind
         </div>
         
         <div class="absolute top-2 right-2 w-6 h-6" v-if="showCompass">
           <div 
-            class="text-lg"
+            class="text-lg transition-transform duration-300 ease-[var(--ease-weather)]"
             :style="{ transform: `rotate(${wind.compassAngle}deg)`, transformOrigin: 'center' }"
           >
             🧭
@@ -47,20 +47,18 @@ type Props = {
 
 const props = defineProps<Props>()
 
-// View model concerns computed from domain data
 const windIcon = computed(() => getWindIcon(props.wind.intensity))
 const { showCompass } = getWindDisplayOptions(props.wind)
 
-// Presentation logic: Styling based on wind intensity
 const intensityClasses = computed(() => {
   const classMap = {
-    [WindIntensity.Light]: 'border-green-200 bg-green-50/50',
-    [WindIntensity.Moderate]: 'border-blue-200 bg-blue-50/50',
-    [WindIntensity.Strong]: 'border-yellow-200 bg-yellow-50/50',
-    [WindIntensity.Severe]: 'border-red-200 bg-red-50/50'
+    [WindIntensity.Light]: 'border-weather-windy-200 bg-weather-windy-50/50',
+    [WindIntensity.Moderate]: 'border-weather-partlyCloudy-200 bg-weather-partlyCloudy-50/50',
+    [WindIntensity.Strong]: 'border-weather-clear-200 bg-weather-clear-50/50',
+    [WindIntensity.Severe]: 'border-weather-storm-200 bg-weather-storm-50/50'
   }
   
-  return classMap[props.wind.intensity] || 'border-blue-200 bg-blue-50/50'
+  return classMap[props.wind.intensity] || 'border-weather-partlyCloudy-200 bg-weather-partlyCloudy-50/50'
 })
 </script>
 
