@@ -37,10 +37,10 @@ export enum WindDirection {
   NNW
 }
 export enum DistanceUnit {
-  Kilometers,
-  Miles,
-  Meters,
-  Feet
+  Kilometers = "Km",
+  Miles = "ml",
+  Meters = "m",
+  Feet = "ft"
 }
 
 export enum HumidityLevel {

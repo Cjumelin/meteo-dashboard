@@ -264,7 +264,7 @@ NODE_ENV=production
 - **Endpoint**: `/api/forecast`
 - **Method**: GET
 - **Response**: `UnguardCurrentCondition | WeatherApiError`
-- **Location**: London (configurable)
+- **Location**: Limassol (configurable)
 - **Forecast Days**: 7 days
 
 ### Error Handling

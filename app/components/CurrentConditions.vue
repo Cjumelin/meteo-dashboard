@@ -1,6 +1,6 @@
 <template>
   <section class="mt-20 text-center">
-    <div class="inline-block bg-white/95 backdrop-blur-lg rounded-[var(--radius-modal)] p-12 md:p-16 border-2 shadow-[var(--shadow-floating)] border-weather-cloudy-200">
+    <Card variant="large" class="inline-block border-2 p-12 md:p-16">
       <div class="text-6xl md:text-8xl mb-8">
         {{ currentCondition.weatherIcon }}
       </div>
@@ -38,7 +38,7 @@
           </span>
         </div>
       </div>
-    </div>
+    </Card>
   </section>
 </template>
 

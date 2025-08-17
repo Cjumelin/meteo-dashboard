@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full max-w-2xl mx-auto p-6 md:p-12 bg-white/95 backdrop-blur-lg rounded-[var(--radius-modal)] shadow-[var(--shadow-floating)] border border-weather-cloudy-200">
+  <Card variant="modal" class="w-full max-w-2xl mx-auto border-weather-cloudy-200 p-6 md:p-12">
     <div class="text-center mb-12">
       <h2 class="text-3xl md:text-4xl font-bold mb-4 font-display flex items-center justify-center gap-6 text-weather-cloudy-800">
         <span class="text-5xl">🌤️</span>
@@ -154,10 +154,10 @@
         </div>
       </div>
     </div>
-  </div>
+  </Card>
 </template>
 
-<script setup>
+<script setup lang="ts">
 
 const weatherData = ref([
   { day: 'Mon', temp: 22, precipitation: 5, condition: 'Partly Cloudy', icon: '⛅' },
@@ -181,12 +181,12 @@ const yAxisLabels = computed(() => {
   return Array.from({ length: 5 }, (_, i) => maxTemp.value - (i * step))
 })
 
-const getTemperatureY = (temp) => {
+const getTemperatureY = (temp: number) => {
   return 100 - ((temp - minTemp.value) / tempRange.value) * 100
 }
 
 // Helper function to get precipitation bar height
-const getPrecipitationHeight = (precipitation) => {
+const getPrecipitationHeight = (precipitation: number) => {
   return Math.max((precipitation / maxPrecipitation.value) * 80, 2)
 }
 
@@ -220,7 +220,7 @@ const temperatureAreaPoints = computed(() => {
 })
 
 // Weather card styling based on condition using theme colors
-const getWeatherCardClass = (condition) => {
+const getWeatherCardClass = (condition: string) => {
   switch (condition.toLowerCase()) {
     case 'sunny':
     case 'clear':

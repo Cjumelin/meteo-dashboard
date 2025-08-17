@@ -19,7 +19,7 @@ export default defineEventHandler(async (event): Promise<UnguardCurrentCondition
   }
 
   try {
-    const location = 'London'
+    const location = 'Limassol'
     const days = 7 
     
     const baseUrl = new URL('http://api.weatherapi.com/v1/forecast.json')

@@ -1,8 +1,9 @@
 <template>
   <div class="relative">
-    <div 
-      class="bg-white/90 backdrop-blur-md rounded-[var(--radius-card)] p-4 md:p-5 border shadow-[var(--shadow-glass)]"
+    <Card 
+      variant="compact"
       :class="riskClasses"
+      class="p-4 md:p-5"
     >
       <div class="text-center relative">
         <div class="text-3xl md:text-4xl mb-4">
@@ -17,12 +18,12 @@
           UV
         </div>
         
-        <p 
-          class="text-xs font-semibold text-center py-1 rounded-full uppercase tracking-wide"
+        <Badge 
+          class="tracking-wide"
           :class="riskLevelClass"
         >
           {{ uvIndex.riskText }}
-        </p>
+        </Badge>
         
         <div class="mt-4 p-2 md:p-3 bg-weather-cloudy-50 rounded-lg" v-if="showProtection">
           <div class="text-lg mb-1">
@@ -44,7 +45,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </Card>
   </div>
 </template>
 

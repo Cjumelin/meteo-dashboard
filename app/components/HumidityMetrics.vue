@@ -1,8 +1,8 @@
 <template>
   <div class="relative">
-    <div 
-      class="bg-white/90 backdrop-blur-md rounded-[var(--radius-card)] p-6 md:p-8 border shadow-[var(--shadow-glass)]"
+    <Card 
       :class="levelClasses"
+      class="p-6 md:p-8"
     >
       <div class="text-center relative">
         <div class="text-3xl md:text-4xl mb-4">
@@ -10,24 +10,20 @@
         </div>
         
         <div class="text-xl md:text-2xl font-bold font-mono mb-2 text-weather-cloudy-800">
-          {{ humidity.humidity }}
-        </div>
-        
-        <div class="text-weather-cloudy-600 font-weather">
-          %
+          {{ humidity.humidity }} %
         </div>
         
         <div class="text-xs text-weather-cloudy-500 mt-3 font-weather">
           Humidity
         </div>
         
-        <div 
+        <Badge 
           v-if="showStatus"
-          class="text-xs font-medium mt-2 px-2 py-1 rounded-full"
+          class="mt-2 text-xs px-2 py-1"
           :class="statusClasses"
         >
           {{ humidity.status }}
-        </div>
+        </Badge>
         
         <div class="mt-4 w-full" v-if="showIndicator">
           <div class="w-full h-2 bg-weather-cloudy-200 rounded-full overflow-hidden">
@@ -39,7 +35,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </Card>
   </div>
 </template>
 

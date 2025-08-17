@@ -1,8 +1,8 @@
 <template>
   <div class="relative">
-    <div 
-      class="bg-white/90 backdrop-blur-md rounded-[var(--radius-card)] p-6 md:p-8 border shadow-[var(--shadow-glass)]"
+    <Card 
       :class="clarityClasses"
+      class="p-6 md:p-8"
     >
       <div class="text-center relative">
         <div class="text-3xl md:text-4xl mb-4">
@@ -51,7 +51,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </Card>
   </div>
 </template>
 

@@ -23,7 +23,7 @@
               📍
             </span>
             <span class="text-white font-medium font-weather">
-              San Francisco, CA
+              Limassol, CY
             </span>
             <span class="text-weather-cloudy-300">
               •

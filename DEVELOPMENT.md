@@ -89,7 +89,7 @@ export const stub: UnguardCurrentCondition = {
 The API endpoint is configured in `server/api/forecast/index.ts`:
 
 ```typescript
-const location = 'London'  // Change this for different locations
+const location = 'Limassol'  // Change this for different locations
 const days = 7             // Number of forecast days
 ```
 

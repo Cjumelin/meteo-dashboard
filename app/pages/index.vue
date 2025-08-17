@@ -35,7 +35,6 @@
       </button>
     </div>
 
-    <WeatherChart />
     
     <CurrentConditions 
       :current-condition="currentCondition"
@@ -55,6 +54,9 @@
         :uv-index="currentCondition.uvIndex"
       />
     </div>
+
+    <WeeklyOutlook :weekly-forecast="weeklyForecast" class="mt-4"/>
+
   </div>
 
   <div v-else class="flex justify-center items-center min-h-64 bg-gradient-to-br from-weather-fog-50 to-weather-fog-100 rounded-[var(--radius-card)] shadow-[var(--shadow-glass)] backdrop-blur-sm">
@@ -74,12 +76,23 @@
 
 
 <script setup lang="ts">
+
 const {
   currentCondition,
   error,
   loading,
   retrieveCurrentCondition
 } = useWeather()
+
+const weeklyForecast = ref<any[]>([
+  { day: 'Mon', temp: 22, precipitation: 5, condition: 'Partly Cloudy', icon: '⛅' },
+  { day: 'Tue', temp: 24, precipitation: 0, condition: 'Sunny', icon: '☀️' },
+  { day: 'Wed', temp: 19, precipitation: 12, condition: 'Rainy', icon: '🌧️' },
+  { day: 'Thu', temp: 21, precipitation: 3, condition: 'Cloudy', icon: '☁️' },
+  { day: 'Fri', temp: 26, precipitation: 0, condition: 'Clear', icon: '☀️' },
+  { day: 'Sat', temp: 23, precipitation: 8, condition: 'Showers', icon: '🌦️' },
+  { day: 'Sun', temp: 25, precipitation: 2, condition: 'Partly Cloudy', icon: '⛅' }
+])
 
 onMounted(async () => {
   await retrieveCurrentCondition()
