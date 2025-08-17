@@ -6,7 +6,7 @@
     >
       <div class="text-center relative">
         <div class="text-3xl md:text-4xl mb-4">
-          {{ visibility.visibilityIcon }}
+          {{ visibilityIcon }}
         </div>
         
         <div class="text-xl md:text-2xl font-bold text-gray-900 font-mono mb-2">
@@ -28,16 +28,16 @@
           {{ visibility.status }}
         </div>
         
-        <div class="mt-3 p-2 md:p-3 bg-gray-50 rounded-lg" v-if="visibility.showConditions">
+        <div class="mt-3 p-2 md:p-3 bg-gray-50 rounded-lg" v-if="showConditions">
           <div class="text-lg mb-1">
-            {{ visibility.conditionsIcon }}
+            {{ conditionsIcon }}
           </div>
           <div class="text-xs md:text-sm text-gray-600 font-weather">
             {{ visibility.atmosphericConditions }}
           </div>
         </div>
         
-        <div class="mt-4 w-full" v-if="visibility.showIndicator">
+        <div class="mt-4 w-full" v-if="showIndicator">
           <div class="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
             <div 
               class="h-full rounded-full"
@@ -56,9 +56,11 @@
 </template>
 
 <script setup lang="ts">
+import type { Visibility } from '~~/shared/weather/types'
+import { VisibilityLevel } from '~~/shared/weather/types'
 
-import type { Visibility } from '../../shared/weather/types/current-condition'
-import { VisibilityLevel } from '../../shared/weather/types/current-condition'
+const { getVisibilityIcon } = useWeatherIcons()
+const { getVisibilityDisplayOptions } = useWeatherDisplay()
 
 type Props = {
   visibility: Visibility
@@ -66,9 +68,11 @@ type Props = {
 
 const props = defineProps<Props>()
 
+// View model concerns computed from domain data
+const visibilityIcon = computed(() => getVisibilityIcon(props.visibility.level))
+const conditionsIcon = computed(() => getVisibilityIcon(props.visibility.level))
+const { showConditions, showIndicator } = getVisibilityDisplayOptions(props.visibility)
 
-
-// Presentation logic: Dynamic card styling based on visibility level
 const clarityClasses = computed(() => {
   const classMap = {
     [VisibilityLevel.VeryPoor]: 'border-red-200 bg-red-50/30',
@@ -81,7 +85,6 @@ const clarityClasses = computed(() => {
   return classMap[props.visibility.level] || 'border-gray-200 bg-gray-50/30'
 })
 
-// Presentation logic: Status text styling
 const statusClasses = computed(() => {
   const classMap = {
     [VisibilityLevel.VeryPoor]: 'bg-red-100 text-red-800',
@@ -94,7 +97,6 @@ const statusClasses = computed(() => {
   return classMap[props.visibility.level] || 'bg-gray-100 text-gray-800'
 })
 
-// Presentation logic: Indicator fill styling
 const indicatorFillClass = computed(() => {
   const classMap = {
     [VisibilityLevel.VeryPoor]: 'bg-gradient-to-r from-red-300 to-red-500',

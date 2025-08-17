@@ -6,7 +6,7 @@
     >
       <div class="text-center relative">
         <div class="text-3xl md:text-4xl mb-4">
-          {{ uvIndex.uvIcon }}
+          {{ uvIcon }}
         </div>
         
         <div class="text-xl md:text-2xl font-bold text-gray-900 font-mono mb-2">
@@ -24,16 +24,16 @@
           {{ uvIndex.riskText }}
         </p>
         
-        <div class="mt-4 p-2 md:p-3 bg-gray-50 rounded-lg" v-if="uvIndex.showProtection">
+        <div class="mt-4 p-2 md:p-3 bg-gray-50 rounded-lg" v-if="showProtection">
           <div class="text-lg mb-1">
-            {{ uvIndex.protectionIcon }}
+            {{ protectionIcon }}
           </div>
           <div class="text-xs md:text-sm text-gray-600 font-weather">
             {{ uvIndex.protectionAdvice }}
           </div>
         </div>
         
-        <div class="mt-4" v-if="uvIndex.showScale">
+        <div class="mt-4" v-if="showScale">
           <div class="relative w-full h-3 bg-gradient-to-r from-green-300 via-yellow-400 to-red-500 rounded-full overflow-hidden">
             <div 
               class="absolute top-0 w-1 h-full bg-gray-800"
@@ -49,9 +49,11 @@
 </template>
 
 <script setup lang="ts">
+import type { UvIndexData } from '~~/shared/weather/types'
+import { UvRiskLevel } from '~~/shared/weather/types'
 
-import type { UvIndexData } from '../../shared/weather/types/current-condition'
-import { UvRiskLevel } from '../../shared/weather/types/current-condition'
+const { getUvIcon } = useWeatherIcons()
+const { getUvDisplayOptions } = useWeatherDisplay()
 
 type Props = {
   uvIndex: UvIndexData
@@ -59,9 +61,10 @@ type Props = {
 
 const props = defineProps<Props>()
 
+const uvIcon = computed(() => getUvIcon(props.uvIndex.riskLevel))
+const protectionIcon = computed(() => getUvIcon(props.uvIndex.riskLevel))
+const { showProtection, showScale } = getUvDisplayOptions(props.uvIndex)
 
-
-// Presentation logic: Styling based on UV risk level
 const riskClasses = computed(() => {
   const classMap = {
     [UvRiskLevel.Low]: 'border-green-200 bg-green-50/50',
@@ -74,7 +77,6 @@ const riskClasses = computed(() => {
   return classMap[props.uvIndex.riskLevel] || 'border-gray-200 bg-gray-50/50'
 })
 
-// Presentation logic: Risk level text styling
 const riskLevelClass = computed(() => {
   const classMap = {
     [UvRiskLevel.Low]: 'bg-green-100 text-green-800',

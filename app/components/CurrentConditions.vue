@@ -43,7 +43,7 @@
 </template>
 
 <script setup lang="ts">
-import type { CurrentCondition } from '../../shared/weather/types/current-condition'
+import type { CurrentCondition } from '~~/shared/weather/types'
 
 type Props = {
   currentCondition: CurrentCondition

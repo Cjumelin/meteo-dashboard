@@ -6,7 +6,7 @@
     >
       <div class="text-center relative">
         <div class="text-3xl md:text-4xl mb-4">
-          {{ humidity.humidityIcon }}
+          {{ humidityIcon }}
         </div>
         
         <div class="text-xl md:text-2xl font-bold text-gray-900 font-mono mb-2">
@@ -22,13 +22,14 @@
         </div>
         
         <div 
+          v-if="showStatus"
           class="text-xs font-medium mt-2 px-2 py-1 rounded-full"
           :class="statusClasses"
         >
           {{ humidity.status }}
         </div>
         
-        <div class="mt-4 w-full" v-if="humidity.showIndicator">
+        <div class="mt-4 w-full" v-if="showIndicator">
           <div class="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
             <div 
               class="h-full rounded-full"
@@ -43,9 +44,11 @@
 </template>
 
 <script setup lang="ts">
+import type { HumidityData } from '~~/shared/weather/types'
+import { HumidityLevel } from '~~/shared/weather/types'
 
-import type { HumidityData } from '../../shared/weather/types/current-condition'
-import { HumidityLevel } from '../../shared/weather/types/current-condition'
+const { getHumidityIcon } = useWeatherIcons()
+const { getHumidityDisplayOptions } = useWeatherDisplay()
 
 type Props = {
   humidity: HumidityData
@@ -53,7 +56,9 @@ type Props = {
 
 const props = defineProps<Props>()
 
-
+// View model concerns computed from domain data
+const humidityIcon = computed(() => getHumidityIcon(props.humidity.level))
+const { showIndicator, showStatus } = getHumidityDisplayOptions(props.humidity)
 
 // Presentation logic: Styling based on humidity level
 const levelClasses = computed(() => {

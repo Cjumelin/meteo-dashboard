@@ -6,7 +6,7 @@
     >
       <div class="text-center relative">
         <div class="text-3xl md:text-4xl mb-4">
-          {{ wind.windIcon }}
+          {{ windIcon }}
         </div>
         
         <div class="text-xl md:text-2xl font-bold text-gray-900 font-mono mb-2">
@@ -21,7 +21,7 @@
           {{ wind.direction }} Wind
         </div>
         
-        <div class="absolute top-2 right-2 w-6 h-6" v-if="wind.showCompass">
+        <div class="absolute top-2 right-2 w-6 h-6" v-if="showCompass">
           <div 
             class="text-lg"
             :style="{ transform: `rotate(${wind.compassAngle}deg)`, transformOrigin: 'center' }"
@@ -35,15 +35,21 @@
 </template>
 
 <script setup lang="ts">
+import type { Wind } from '~~/shared/weather/types'
+import { WindIntensity } from '~~/shared/weather/types'
 
-import type { Wind } from '../../shared/weather/types/current-condition'
-import { WindIntensity } from '../../shared/weather/types/current-condition'
+const { getWindIcon } = useWeatherIcons()
+const { getWindDisplayOptions } = useWeatherDisplay()
 
 type Props = {
   wind: Wind
 }
 
 const props = defineProps<Props>()
+
+// View model concerns computed from domain data
+const windIcon = computed(() => getWindIcon(props.wind.intensity))
+const { showCompass } = getWindDisplayOptions(props.wind)
 
 // Presentation logic: Styling based on wind intensity
 const intensityClasses = computed(() => {

@@ -37,26 +37,7 @@
     </header>
 
     <main class="weather-main">
-      <WeatherChart />
-      
-      <CurrentConditions 
-        :current-condition="currentCondition"
-      />
-      
-      <div class="weather-metrics-grid">
-        <WindMetrics 
-          :wind="currentCondition.wind"
-        />
-        <HumidityMetrics 
-          :humidity="currentCondition.humidity"
-        />
-        <VisibilityMetrics 
-          :visibility="currentCondition.visibility"
-        />
-        <UvIndexMetrics 
-          :uv-index="currentCondition.uvIndex"
-        />
-      </div>
+      <NuxtPage />
     </main>
 
     <footer class="weather-footer">
@@ -75,46 +56,6 @@
     </footer>
   </div>
 </template>
-
-<script setup lang="ts">
-import {
-  WeatherCondition,
-  DistanceUnit,
-  WindIntensity,
-  WindDirection,
-} from '../shared/weather/types/current-condition'
-import { createCurrentCondition } from '../shared/weather/current-condition'
-
-const currentCondition = createCurrentCondition({
-  temperatureValue: 22,
-  feelsLikeValue: 22,
-  highTempValue: 24,
-  lowTempValue: 28,
-  description: 'Sunny & Bright',
-  weatherIcon: '☀️',
-  condition: WeatherCondition.Clear,
-  windSpeedValue: 12,
-  windDirection: WindDirection.NW,
-  windSpeedUnit: 'km/h',
-  windIcon: '💨',
-  windIntensity: WindIntensity.Moderate,
-  showCompass: true,
-  humidityValue: 68,
-  humidityIcon: '💧',
-  showHumidityIndicator: true,
-  showHumidityStatus: true,
-  uvIndexValue: 5,
-  uvIcon: '☀️',
-  showUvProtection: true,
-  showUvScale: true,
-  visibilityDistanceValue: 10,
-  visibilityDistanceUnit: DistanceUnit.Kilometers,
-  visibilityIcon: '👁️',
-  maxVisibility: 15,
-  showVisibilityConditions: true,
-  showVisibilityIndicator: true
-})
-</script>
 
 <style>
 @import "../assets/css/theme.css";
@@ -160,11 +101,6 @@ const currentCondition = createCurrentCondition({
 }
 
 /* Removed card components - now handled by domain-specific components */
-
-/* Grid Components */
-.weather-metrics-grid {
-  @apply mt-24 grid grid-cols-2 md:grid-cols-4 gap-8;
-}
 
 .weather-atmospheric-bg {
   @apply absolute inset-0 bg-atmospheric-depth opacity-30;

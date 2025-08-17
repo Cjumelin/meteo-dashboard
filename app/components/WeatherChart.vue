@@ -158,7 +158,6 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
 
 const weatherData = ref([
   { day: 'Mon', temp: 22, precipitation: 5, condition: 'Partly Cloudy', icon: '⛅' },

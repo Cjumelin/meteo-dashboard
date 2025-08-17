@@ -44,31 +44,34 @@ export enum DistanceUnit {
 }
 
 export enum HumidityLevel {
-  Low,
-  Moderate,
-  Comfortable,
-  High,
-  VeryHigh
+  Low = 'Low',
+  Moderate = 'Moderate',
+  Comfortable = 'Comfortable',
+  High = 'High',
+  VeryHigh = 'Very High'
 }
+
 export enum UvRiskLevel {
-  Low,
-  Moderate,
-  High,
-  VeryHigh,
-  Extreme
+  Low = 'Low',
+  Moderate = 'Moderate',
+  High = 'High',
+  VeryHigh = 'Very High',
+  Extreme = 'Extreme'
 }
+
 export enum VisibilityLevel {
-  VeryPoor,
-  Poor,
-  Moderate,
-  Good,
-  Excellent
+  VeryPoor = 'Very Poor',
+  Poor = 'Poor',
+  Moderate = 'Moderate',
+  Good = 'Good',
+  Excellent = 'Excellent'
 }
+
 export enum WindIntensity {
-  Light,
-  Moderate,
-  Strong,
-  Severe
+  Light = 'Light',
+  Moderate = 'Moderate',
+  Strong = 'Strong',
+  Severe = 'Severe'
 }
 
 
@@ -94,43 +97,30 @@ export type Wind = {
   readonly speed: WindSpeed
   readonly direction: WindDirection
   readonly speedUnit: string
-  readonly windIcon: string
   readonly intensity: WindIntensity
-  readonly showCompass: boolean
   readonly compassAngle: number
 }
 
 export type HumidityData = {
   readonly humidity: Humidity
-  readonly humidityIcon: string
-  readonly showIndicator: boolean
-  readonly showStatus: boolean
   readonly level: HumidityLevel
   readonly status: string
 }
 
 export type UvIndexData = {
   readonly index: UvIndex
-  readonly uvIcon: string
-  readonly showProtection: boolean
-  readonly showScale: boolean
   readonly riskLevel: UvRiskLevel
   readonly riskText: string
   readonly protectionAdvice: string
-  readonly protectionIcon: string
   readonly scalePosition: number
 }
 
 export type Visibility = {
   readonly distance: Distance
   readonly distanceUnit: DistanceUnit
-  readonly visibilityIcon: string
   readonly maxVisibility: number
-  readonly showConditions: boolean
-  readonly showIndicator: boolean
   readonly level: VisibilityLevel
   readonly status: string
   readonly atmosphericConditions: string
-  readonly conditionsIcon: string
   readonly visibilityPercentage: number
 }
