@@ -1,6 +1,18 @@
 <template>
   <section class="mt-20 text-center">
-    <Card variant="large" class="inline-block border-2 p-12 md:p-16">
+    <CardSkeleton 
+      v-if="loading || !currentCondition"
+      variant="large"
+      :show-icon="true"
+      :show-title="false"
+      :show-subtitle="true"
+      :show-value="true"
+      :show-unit="true"
+      :show-description="true"
+      class="inline-block border-2 p-12 md:p-16"
+    />
+    
+    <Card v-else variant="large" class="inline-block border-2 p-12 md:p-16">
       <div class="text-6xl md:text-8xl mb-8">
         {{ currentCondition.weatherIcon }}
       </div>
@@ -43,11 +55,5 @@
 </template>
 
 <script setup lang="ts">
-import type { CurrentCondition } from '~~/shared/weather/types'
-
-type Props = {
-  currentCondition: CurrentCondition
-}
-
-const props = defineProps<Props>()
+const { currentCondition, loading } = useWeather()
 </script>

@@ -1,62 +1,62 @@
 <template>
   <div class="relative">
-    <Card 
+    <CardSkeleton 
+      v-if="loading || !wind"
+      :show-icon="true"
+      :show-title="false"
+      :show-subtitle="false"
+      :show-value="true"
+      :show-unit="true"
+      :show-description="true"
       class="p-6 md:p-8 text-center relative"
       :class="intensityClasses"
+    />
+    
+    <Card 
+      v-else
+      :variant="intensityClasses"
+      class="p-6 md:p-8 text-center"
     >
-        <div class="text-3xl md:text-4xl mb-4">
-          {{ windIcon }}
-        </div>
-        
-        <div class="text-xl md:text-2xl font-bold font-mono mb-2 text-weather-cloudy-800">
-          {{ wind.speed }}
-        </div>
-        
-        <div class="text-weather-cloudy-600 font-weather">
-          {{ wind.speedUnit }}
-        </div>
-        
-        <div class="text-xs text-weather-cloudy-500 mt-3 font-weather">
-          {{ wind.direction }} Wind
-        </div>
-        
-        <div class="absolute top-2 right-2 w-6 h-6" v-if="showCompass">
-          <div 
-            class="text-lg transition-transform duration-300 ease-[var(--ease-weather)]"
-            :style="{ transform: `rotate(${wind.compassAngle}deg)`, transformOrigin: 'center' }"
-          >
-            🧭
-          </div>
-        </div>
+      <div class="text-3xl md:text-4xl mb-4">
+        {{ windIcon }}
+      </div>
+      
+      <div class="text-xl md:text-2xl font-bold font-mono mb-2 text-weather-cloudy-800">
+        {{ wind.speed }}
+      </div>
+      
+      <div class="text-weather-cloudy-600 font-weather">
+        {{ wind.speedUnit }}
+      </div>
+      
+    
+    <div class="self-center text-center pt-4">
+        <span class="block text-2xl transition-transform duration-300 ease-[var(--ease-weather)]"
+        :style="{ transform: `rotate(${wind.compassAngle}deg)`, transformOrigin: 'center' }"
+        >🧭</span>
+
+      <span class="text-xs text-weather-cloudy-500 mt-3 font-weather">
+        {{ wind.direction }} {{ wind.compassAngle }}°
+      </span>
+    </div>
     </Card>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { Wind } from '~~/shared/weather/types'
 import { WindIntensity } from '~~/shared/weather/types'
+import { useCardVariant } from '~/composables/ui/useCardVariant'
 
+const { currentCondition, loading } = useWeather()
 const { getWindIcon } = useWeatherIcons()
-const { getWindDisplayOptions } = useWeatherDisplay()
+const { getCardVariant } = useCardVariant()
 
-type Props = {
-  wind: Wind
-}
-
-const props = defineProps<Props>()
-
-const windIcon = computed(() => getWindIcon(props.wind.intensity))
-const { showCompass } = getWindDisplayOptions(props.wind)
+const wind = computed(() => currentCondition.value?.wind)
+const windIcon = computed(() => wind.value ? getWindIcon(wind.value.intensity) : '')
 
 const intensityClasses = computed(() => {
-  const classMap = {
-    [WindIntensity.Light]: 'border-weather-windy-200 bg-weather-windy-50/50',
-    [WindIntensity.Moderate]: 'border-weather-partlyCloudy-200 bg-weather-partlyCloudy-50/50',
-    [WindIntensity.Strong]: 'border-weather-clear-200 bg-weather-clear-50/50',
-    [WindIntensity.Severe]: 'border-weather-storm-200 bg-weather-storm-50/50'
-  }
-  
-  return classMap[props.wind.intensity] || 'border-weather-partlyCloudy-200 bg-weather-partlyCloudy-50/50'
+  if (!wind.value) return 'weather-low'
+  return getCardVariant(Object.values(WindIntensity).indexOf(wind.value.intensity))
 })
 </script>
 

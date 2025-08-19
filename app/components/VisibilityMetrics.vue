@@ -1,7 +1,20 @@
 <template>
   <div class="relative">
-    <Card 
+    <CardSkeleton 
+      v-if="loading || !visibility"
+      :show-icon="true"
+      :show-title="false"
+      :show-subtitle="false"
+      :show-value="true"
+      :show-unit="true"
+      :show-description="true"
       :class="clarityClasses"
+      class="p-6 md:p-8"
+    />
+    
+    <Card 
+      v-else
+      :variant="clarityClasses"
       class="p-6 md:p-8"
     >
       <div class="text-center relative">
@@ -28,7 +41,7 @@
           {{ visibility.status }}
         </div>
         
-        <div class="mt-3 p-2 md:p-3 bg-weather-cloudy-50 rounded-lg" v-if="showConditions">
+        <div class="mt-3 p-2 md:p-3 bg-weather-cloudy-50 rounded-lg">
           <div class="text-lg mb-1">
             {{ conditionsIcon }}
           </div>
@@ -37,7 +50,7 @@
           </div>
         </div>
         
-        <div class="mt-4 w-full" v-if="showIndicator">
+        <div class="mt-4 w-full">
           <div class="w-full h-2 bg-weather-cloudy-200 rounded-full overflow-hidden">
             <div 
               class="h-full rounded-full transition-all duration-300 ease-[var(--ease-weather)]"
@@ -47,6 +60,7 @@
           </div>
           <div class="flex justify-between text-xs text-weather-cloudy-500 mt-2 font-mono">
             <span>0</span>
+            <span>-</span>
             <span>{{ visibility.maxVisibility }}{{ visibility.distanceUnit }}</span>
           </div>
         </div>
@@ -56,56 +70,34 @@
 </template>
 
 <script setup lang="ts">
-import type { Visibility } from '~~/shared/weather/types'
 import { VisibilityLevel } from '~~/shared/weather/types'
+import { useCardVariant } from '~/composables/ui/useCardVariant'
+import { useBadgeVariant } from '~/composables/ui/useBadgeVariant'
+import { useProgressVariant } from '~/composables/ui/useProgressVariant'
 
+const { currentCondition, loading } = useWeather()
 const { getVisibilityIcon } = useWeatherIcons()
-const { getVisibilityDisplayOptions } = useWeatherDisplay()
+const { getCardVariant } = useCardVariant()
+const { getBadgeVariant } = useBadgeVariant()
+const { getProgressVariant } = useProgressVariant()
 
-type Props = {
-  visibility: Visibility
-}
+const visibility = computed(() => currentCondition.value?.visibility)
 
-const props = defineProps<Props>()
-
-// View model concerns computed from domain data
-const visibilityIcon = computed(() => getVisibilityIcon(props.visibility.level))
-const conditionsIcon = computed(() => getVisibilityIcon(props.visibility.level))
-const { showConditions, showIndicator } = getVisibilityDisplayOptions(props.visibility)
+const visibilityIcon = computed(() => visibility.value ? getVisibilityIcon(visibility.value.level) : '')
+const conditionsIcon = computed(() => visibility.value ? getVisibilityIcon(visibility.value.level) : '')
 
 const clarityClasses = computed(() => {
-  const classMap = {
-    [VisibilityLevel.VeryPoor]: 'border-weather-storm-200 bg-weather-storm-50/30',
-    [VisibilityLevel.Poor]: 'border-weather-fog-200 bg-weather-fog-50/30',
-    [VisibilityLevel.Moderate]: 'border-weather-partlyCloudy-200 bg-weather-partlyCloudy-50/30',
-    [VisibilityLevel.Good]: 'border-weather-clear-200 bg-weather-clear-50/30',
-    [VisibilityLevel.Excellent]: 'border-weather-clear-300 bg-weather-clear-100/30'
-  }
-  
-  return classMap[props.visibility.level] || 'border-weather-cloudy-200 bg-weather-cloudy-50/30'
+  if (!visibility.value) return 'weather-moderate'
+  return getCardVariant(Object.values(VisibilityLevel).indexOf(visibility.value.level))
 })
 
 const statusClasses = computed(() => {
-  const classMap = {
-    [VisibilityLevel.VeryPoor]: 'bg-weather-storm-100 text-weather-storm-800',
-    [VisibilityLevel.Poor]: 'bg-weather-fog-100 text-weather-fog-800',
-    [VisibilityLevel.Moderate]: 'bg-weather-partlyCloudy-100 text-weather-partlyCloudy-800',
-    [VisibilityLevel.Good]: 'bg-weather-clear-100 text-weather-clear-800',
-    [VisibilityLevel.Excellent]: 'bg-weather-clear-200 text-weather-clear-900'
-  }
-  
-  return classMap[props.visibility.level] || 'bg-weather-cloudy-100 text-weather-cloudy-800'
+  if (!visibility.value) return 'bg-weather-cloudy-100 text-weather-cloudy-800'
+  return getBadgeVariant(Object.values(VisibilityLevel).indexOf(visibility.value.level))
 })
 
 const indicatorFillClass = computed(() => {
-  const classMap = {
-    [VisibilityLevel.VeryPoor]: 'bg-gradient-to-r from-weather-storm-300 to-weather-storm-500',
-    [VisibilityLevel.Poor]: 'bg-gradient-to-r from-weather-fog-300 to-weather-fog-500',
-    [VisibilityLevel.Moderate]: 'bg-gradient-to-r from-weather-partlyCloudy-300 to-weather-partlyCloudy-500',
-    [VisibilityLevel.Good]: 'bg-gradient-to-r from-weather-clear-300 to-weather-clear-500',
-    [VisibilityLevel.Excellent]: 'bg-gradient-to-r from-weather-clear-400 to-weather-clear-600'
-  }
-  
-  return classMap[props.visibility.level] || 'bg-gradient-to-r from-weather-cloudy-300 to-weather-cloudy-500'
+  if (!visibility.value) return 'bg-gradient-to-r from-weather-cloudy-300 to-weather-cloudy-500'
+  return getProgressVariant(Object.values(VisibilityLevel).indexOf(visibility.value.level))
 })
 </script>
