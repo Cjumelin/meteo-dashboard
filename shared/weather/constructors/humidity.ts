@@ -1,5 +1,4 @@
-import type { HumidityData } from '~~/shared/weather/types'
-import type { Humidity } from '~~/shared/weather/types'
+import type { HumidityData, Humidity } from '~~/shared/weather/types'
 import { HumidityLevel } from '~~/shared/weather/types'
 import { createPercentage } from '~~/shared/utils/percentage/constructor'
 
@@ -25,6 +24,6 @@ export const createHumidity = ({ value }: {
   return {
     humidity,
     level,
-    status: level
+    status: level,
   }
 }

@@ -1,12 +1,18 @@
 <template>
   <div class="min-h-screen bg-[var(--background-image-clear-sky)] relative overflow-hidden">
     <NuxtRouteAnnouncer />
-    
-    <div class="absolute inset-0 bg-[var(--background-image-atmospheric-depth)] opacity-30"></div>
-    <div class="absolute top-10 left-1/4 text-6xl opacity-20">☁️</div>
-    <div class="absolute top-20 right-1/4 text-4xl opacity-15">⛅</div>
-    <div class="absolute top-32 left-1/3 text-3xl opacity-10">🌤️</div>
-    
+
+    <div class="absolute inset-0 bg-[var(--background-image-atmospheric-depth)] opacity-30" />
+    <div class="absolute top-10 left-1/4 text-6xl opacity-20">
+      ☁️
+    </div>
+    <div class="absolute top-20 right-1/4 text-4xl opacity-15">
+      ⛅
+    </div>
+    <div class="absolute top-32 left-1/3 text-3xl opacity-10">
+      🌤️
+    </div>
+
     <header class="relative z-10 bg-weather-cloudy-900/80 backdrop-blur-lg shadow-[var(--shadow-floating)] border-b border-weather-cloudy-700/30">
       <div class="max-w-xl mx-auto px-8 py-16">
         <h1 class="text-5xl font-bold text-white text-center flex items-center justify-center gap-6 font-display">

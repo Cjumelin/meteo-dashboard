@@ -1,6 +1,6 @@
 export enum TemperatureUnit {
   CELSIUS = 'celsius',
-  FAHRENHEIT = 'fahrenheit'
+  FAHRENHEIT = 'fahrenheit',
 }
 
 export type Celsius = {

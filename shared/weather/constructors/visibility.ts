@@ -1,7 +1,5 @@
-import type { Visibility } from '~~/shared/weather/types'
-import type { Distance } from '~~/shared/weather/types'
-import { DistanceUnit, VisibilityLevel } from '~~/shared/weather/types'
-import { DISTANCE_FALLBACK } from '~~/shared/weather/types'
+import type { Visibility, Distance, DistanceUnit } from '~~/shared/weather/types'
+import { VisibilityLevel, DISTANCE_FALLBACK } from '~~/shared/weather/types'
 
 const guardDistance = (value: number): Distance => {
   if (value < 0 || isNaN(value)) {
@@ -27,15 +25,13 @@ export const createVisibility = ({ distance, unit, maxDistance }: {
 
   const level = getVisibilityLevel(visibilityDistance)
 
-
-
   const getAtmosphericConditions = (level: VisibilityLevel): string => {
     const conditionsMap: Record<VisibilityLevel, string> = {
       [VisibilityLevel.VeryPoor]: 'Heavy fog/smog',
       [VisibilityLevel.Poor]: 'Light fog/haze',
       [VisibilityLevel.Moderate]: 'Slight haze',
       [VisibilityLevel.Good]: 'Clear air',
-      [VisibilityLevel.Excellent]: 'Crystal clear'
+      [VisibilityLevel.Excellent]: 'Crystal clear',
     }
     return conditionsMap[level] || 'Normal conditions'
   }
@@ -52,6 +48,6 @@ export const createVisibility = ({ distance, unit, maxDistance }: {
     level,
     status: level,
     atmosphericConditions: getAtmosphericConditions(level),
-    visibilityPercentage: getVisibilityPercentage(visibilityDistance, Math.max(maxDistance, 1))
+    visibilityPercentage: getVisibilityPercentage(visibilityDistance, Math.max(maxDistance, 1)),
   }
 }

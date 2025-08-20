@@ -89,6 +89,6 @@ export const useWeatherIcons = () => {
     getWindIcon,
     getHumidityIcon,
     getUvIcon,
-    getVisibilityIcon
+    getVisibilityIcon,
   }
 }

@@ -6,5 +6,4 @@
 
 <style>
 @import '../assets/css/theme.css';
-
 </style>

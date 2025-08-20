@@ -3,7 +3,7 @@ const badgeVariants = [
   'bg-weather-partlyCloudy-100 text-weather-partlyCloudy-800',
   'bg-weather-cloudy-100 text-weather-cloudy-800',
   'bg-weather-rainy-100 text-weather-rainy-800',
-  'bg-weather-storm-100 text-weather-storm-800'
+  'bg-weather-storm-100 text-weather-storm-800',
 ]
 
 export const useBadgeVariant = () => {
@@ -12,6 +12,6 @@ export const useBadgeVariant = () => {
   }
 
   return {
-    getBadgeVariant
+    getBadgeVariant,
   }
 }

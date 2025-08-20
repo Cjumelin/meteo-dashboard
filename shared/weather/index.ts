@@ -1,66 +1,63 @@
-import type { CurrentCondition } from "~~/shared/weather/types";
-
-import type { Temperature } from "~~/shared/utils/temperature/types";
-
-import {
+import type { CurrentCondition,
   WeatherCondition,
   WindDirection,
   DistanceUnit,
-  WindIntensity,
-} from "~~/shared/weather/types";
+  WindIntensity } from '~~/shared/weather/types'
 
-import { createCelsius } from "~~/shared/utils/temperature/constructor";
-import { createWind } from "~~/shared/weather/constructors/wind";
-import { createHumidity } from "~~/shared/weather/constructors/humidity";
-import { createUvIndex } from "~~/shared/weather/constructors/uv";
-import { createVisibility } from "~~/shared/weather/constructors/visibility";
+import type { Temperature } from '~~/shared/utils/temperature/types'
+
+import { createCelsius } from '~~/shared/utils/temperature/constructor'
+import { createWind } from '~~/shared/weather/constructors/wind'
+import { createHumidity } from '~~/shared/weather/constructors/humidity'
+import { createUvIndex } from '~~/shared/weather/constructors/uv'
+import { createVisibility } from '~~/shared/weather/constructors/visibility'
 
 const guardTemperature = (value: number): Temperature => {
-  return createCelsius(value);
-};
+  return createCelsius(value)
+}
 
 type UnguardTemperature = {
-  current: number;
-  feelsLike: number;
-  high: number;
-  low: number;
-};
+  current: number
+  feelsLike: number
+  high: number
+  low: number
+}
 
 type UnguardCondition = {
-  description: string;
-  icon: string;
-  type: WeatherCondition;
-};
+  description: string
+  icon: string
+  type: WeatherCondition
+}
 
 type UnguardWind = {
-  speed: number;
-  direction: WindDirection;
-  unit: string;
-  intensity: WindIntensity;
-};
+  speed: number
+  direction: WindDirection
+  unit: string
+  intensity: WindIntensity
+}
 
 type UnguardHumidity = {
-  value: number;
-};
+  value: number
+}
 
 type UnguardUv = {
-  index: number;
-};
+  index: number
+}
 
 type UnguardVisibility = {
-  distance: number;
-  unit: DistanceUnit;
-  maxDistance: number;
-};
+  distance: number
+  unit: DistanceUnit
+  maxDistance: number
+}
 
 export type UnguardCurrentCondition = {
-  temperature: UnguardTemperature;
-  condition: UnguardCondition;
-  wind: UnguardWind;
-  humidity: UnguardHumidity;
-  uv: UnguardUv;
-  visibility: UnguardVisibility;
-};
+  temperature: UnguardTemperature
+  condition: UnguardCondition
+  wind: UnguardWind
+  humidity: UnguardHumidity
+  uv: UnguardUv
+  visibility: UnguardVisibility
+}
 
 export const createCurrentCondition = ({
   temperature,
@@ -74,21 +71,21 @@ export const createCurrentCondition = ({
   feelsLike: guardTemperature(temperature.feelsLike),
   highTemp: guardTemperature(temperature.high),
   lowTemp: guardTemperature(temperature.low),
-  description: condition.description || "Weather data unavailable",
-  weatherIcon: condition.icon || "❓",
+  description: condition.description || 'Weather data unavailable',
+  weatherIcon: condition.icon || '❓',
   condition: condition.type,
 
   wind: createWind(wind),
   humidity: createHumidity(humidity),
   uvIndex: createUvIndex(uv),
   visibility: createVisibility(visibility),
-});
+})
 
-export { createWind } from "./constructors/wind";
+export { createWind } from './constructors/wind'
 
-export { createHumidity } from "./constructors/humidity";
+export { createHumidity } from './constructors/humidity'
 
-export { createUvIndex } from "./constructors/uv";
+export { createUvIndex } from './constructors/uv'
 
-export { createVisibility } from "./constructors/visibility";
-export { stub } from "./stub";
+export { createVisibility } from './constructors/visibility'
+export { stub } from './stub'

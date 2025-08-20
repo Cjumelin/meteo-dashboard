@@ -6,28 +6,28 @@ export const stub: UnguardCurrentCondition = {
     current: 22.4,
     feelsLike: 24,
     high: 26.2,
-    low: 14.2
+    low: 14.2,
   },
   condition: {
-    description: "Sunny",
-    icon: "🌤️",
-    type: WeatherCondition.Sunny
+    description: 'Sunny',
+    icon: '🌤️',
+    type: WeatherCondition.Sunny,
   },
   wind: {
     speed: 11.9,
     direction: WindDirection.E,
-    unit: "km/h",
-    intensity: WindIntensity.Light
+    unit: 'km/h',
+    intensity: WindIntensity.Light,
   },
   humidity: {
-    value: 43
+    value: 43,
   },
   uv: {
-    index: 5.8
+    index: 5.8,
   },
   visibility: {
     distance: 10,
     unit: DistanceUnit.Kilometers,
-    maxDistance: 15
-  }
+    maxDistance: 15,
+  },
 }

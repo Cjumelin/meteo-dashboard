@@ -1,13 +1,11 @@
-import type { UvIndexData } from '~~/shared/weather/types'
-import type { UvIndex } from '~~/shared/weather/types'
-import { UvRiskLevel } from '~~/shared/weather/types'
-import { UV_INDEX_FALLBACK } from '~~/shared/weather/types'
+import type { UvIndexData, UvIndex } from '~~/shared/weather/types'
+import { UvRiskLevel, UV_INDEX_FALLBACK } from '~~/shared/weather/types'
 
 // UV Scale constants
 export const UV_SCALE = {
   MIN: 0,
   MAX: 11,
-} as const;
+} as const
 
 const guardUvIndex = (value: number): UvIndex => {
   if (value < UV_SCALE.MIN || value > UV_SCALE.MAX || isNaN(value)) {
@@ -37,7 +35,7 @@ export const createUvIndex = ({ index }: {
       [UvRiskLevel.Moderate]: 'Seek shade during midday',
       [UvRiskLevel.High]: 'Protection essential',
       [UvRiskLevel.VeryHigh]: 'Extra protection required',
-      [UvRiskLevel.Extreme]: 'Avoid sun exposure'
+      [UvRiskLevel.Extreme]: 'Avoid sun exposure',
     }
     return adviceMap[level] || 'Use sun protection'
   }
@@ -52,6 +50,6 @@ export const createUvIndex = ({ index }: {
     riskLevel,
     riskText: riskLevel,
     protectionAdvice: getProtectionAdvice(riskLevel),
-    scalePosition: getScalePosition(uvIndex)
+    scalePosition: getScalePosition(uvIndex),
   }
 }

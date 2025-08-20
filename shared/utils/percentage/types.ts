@@ -1,1 +1,1 @@
-export type Percentage = number 
+export type Percentage = number

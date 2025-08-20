@@ -1,5 +1,5 @@
 <template>
-  <span 
+  <span
     class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
     :class="variantClasses[variant]"
   >
@@ -15,7 +15,7 @@ type Props = {
 }
 
 const _ = withDefaults(defineProps<Props>(), {
-  variant: 'default'
+  variant: 'default',
 })
 
 const variantClasses = BADGE_VARIANT_CLASSES

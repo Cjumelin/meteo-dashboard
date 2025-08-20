@@ -1,5 +1,5 @@
 <template>
-  <div 
+  <div
     class="bg-white/90 backdrop-blur-md rounded-[var(--radius-card)] border shadow-[var(--shadow-glass)]"
     :class="variantClasses[variant]"
   >
@@ -15,11 +15,8 @@ type Props = {
 }
 
 const _ = withDefaults(defineProps<Props>(), {
-  variant: 'default'
+  variant: 'default',
 })
 
 const variantClasses = CARD_VARIANT_CLASSES
-
-
-
 </script>

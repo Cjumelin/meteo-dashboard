@@ -10,5 +10,3 @@ export const createPercentage = (value: number): Percentage => {
   }
   return value
 }
-
-

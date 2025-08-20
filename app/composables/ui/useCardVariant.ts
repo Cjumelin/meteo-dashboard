@@ -6,6 +6,6 @@ export const useCardVariant = () => {
   }
 
   return {
-    getCardVariant
+    getCardVariant,
   }
 }
