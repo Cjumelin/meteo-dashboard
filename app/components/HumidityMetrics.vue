@@ -32,19 +32,16 @@
         
         <Badge 
           class="mt-2 text-xs px-2 py-1"
-          :class="statusClasses"
+          :class="getBadgeVariant(Object.values(HumidityLevel).indexOf(humidity.level))"
         >
           {{ humidity.status }}
         </Badge>
         
         <div class="mt-4 w-full">
-          <div class="w-full h-2 bg-weather-cloudy-200 rounded-full overflow-hidden">
-            <div 
-              class="h-full rounded-full transition-all duration-300 ease-[var(--ease-weather)]"
-              :style="{ width: `${humidity.humidity}%` }"
-              :class="indicatorClasses"
-            ></div>
-          </div>
+          <ProgressBar 
+            :percentage="humidity.humidity"
+            :variant="getProgressBarVariant(Object.values(HumidityLevel).indexOf(humidity.level))"
+          />
         </div>
       </div>
     </Card>
@@ -55,13 +52,14 @@
 import { HumidityLevel } from '~~/shared/weather/types'
 import { useCardVariant } from '~/composables/ui/useCardVariant'
 import { useBadgeVariant } from '~/composables/ui/useBadgeVariant'
-import { useProgressVariant } from '~/composables/ui/useProgressVariant'
+import { useProgressBarVariant } from '~/composables/ui/useProgressBarVariant'
+import ProgressBar from '~/components/ui/ProgressBar.vue'
 
 const { currentCondition, loading } = useWeather()
 const { getHumidityIcon } = useWeatherIcons()
 const { getCardVariant } = useCardVariant()
 const { getBadgeVariant } = useBadgeVariant()
-const { getProgressVariant } = useProgressVariant()
+const { getProgressBarVariant } = useProgressBarVariant()
 
 const humidity = computed(() => currentCondition.value?.humidity)
 const humidityIcon = computed(() => humidity.value ? getHumidityIcon(humidity.value.level) : '')
@@ -71,15 +69,9 @@ const levelClasses = computed(() => {
   return getCardVariant(Object.values(HumidityLevel).indexOf(humidity.value.level))
 })
 
-const statusClasses = computed(() => {
-  if (!humidity.value) return 'bg-weather-cloudy-100 text-weather-cloudy-800'  
-  return getBadgeVariant(Object.values(HumidityLevel).indexOf(humidity.value.level))
-})
 
-const indicatorClasses = computed(() => {
-  if (!humidity.value) return 'bg-gradient-to-r from-weather-cloudy-300 to-weather-cloudy-500'
-  return getProgressVariant(Object.values(HumidityLevel).indexOf(humidity.value.level))
-})
+
+
 </script>
 
 

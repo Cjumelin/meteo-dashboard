@@ -3,8 +3,14 @@ import type { UvIndex } from '~~/shared/weather/types'
 import { UvRiskLevel } from '~~/shared/weather/types'
 import { UV_INDEX_FALLBACK } from '~~/shared/weather/types'
 
+// UV Scale constants
+export const UV_SCALE = {
+  MIN: 0,
+  MAX: 11,
+} as const;
+
 const guardUvIndex = (value: number): UvIndex => {
-  if (value < 0 || value > 15 || isNaN(value)) {
+  if (value < UV_SCALE.MIN || value > UV_SCALE.MAX || isNaN(value)) {
     return UV_INDEX_FALLBACK
   }
   return value
@@ -37,8 +43,7 @@ export const createUvIndex = ({ index }: {
   }
 
   const getScalePosition = (value: number): number => {
-    const maxIndex = 15
-    const position = Math.min((value / maxIndex) * 100, 100)
+    const position = Math.min((value / UV_SCALE.MAX) * 100, 100)
     return Math.max(position, 2) // Minimum 2% to keep indicator visible
   }
 

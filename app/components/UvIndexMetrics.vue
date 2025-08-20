@@ -33,7 +33,7 @@
         
         <Badge 
           class="tracking-wide"
-          :class="riskLevelClass"
+          :class="getBadgeVariant(Object.values(UvRiskLevel).indexOf(uvIndex.riskLevel))"
         >
           {{ uvIndex.riskText }}
         </Badge>
@@ -48,14 +48,20 @@
         </div>
         
         <div class="mt-4">
-          <div class="relative w-full h-3 bg-gradient-to-r from-weather-windy-300 via-weather-clear-400 to-weather-storm-500 rounded-full overflow-hidden">
-            <div
-              class="absolute top-0 w-1 h-full bg-weather-cloudy-800 transition-all duration-300 ease-[var(--ease-weather)]"
-              :style="{ left: `${uvIndex.scalePosition}%` }"
-            ></div>
-          </div>
-          <div class="flex justify-between text-xs text-weather-cloudy-500 mt-2 font-mono">
-          </div>
+          <ProgressBar 
+            :percentage="uvIndex.scalePosition"
+            :show-marker="true"
+          >
+            <template #background>
+              <div class="w-full h-full bg-gradient-to-r from-weather-windy-300 via-weather-clear-400 to-weather-storm-500 rounded-full"></div>
+            </template>
+            <template #labels>
+              <div class="flex justify-between text-xs text-weather-cloudy-500 mt-2 font-mono">
+                <span>{{ UV_SCALE.MIN }}</span>
+                <span>{{ UV_SCALE.MAX }}+</span>
+              </div>
+            </template>
+          </ProgressBar>
         </div>
       </div>
     </Card>
@@ -64,8 +70,10 @@
 
 <script setup lang="ts">
 import { UvRiskLevel } from '~~/shared/weather/types'
+import { UV_SCALE } from '~~/shared/weather/constructors/uv'
 import { useCardVariant } from '~/composables/ui/useCardVariant'
 import { useBadgeVariant } from '~/composables/ui/useBadgeVariant'
+import ProgressBar from '~/components/ui/ProgressBar.vue'
 
 const { currentCondition, loading } = useWeather()
 const { getUvIcon } = useWeatherIcons()
@@ -82,10 +90,7 @@ const riskClasses = computed(() => {
   return getCardVariant(Object.values(UvRiskLevel).indexOf(uvIndex.value.riskLevel))
 })
 
-const riskLevelClass = computed(() => {
-  if (!uvIndex.value) return 'bg-weather-cloudy-100 text-weather-cloudy-800'
-  return getBadgeVariant(Object.values(UvRiskLevel).indexOf(uvIndex.value.riskLevel))
-})
+
 </script>
 
 
