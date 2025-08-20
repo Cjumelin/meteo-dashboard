@@ -45,7 +45,7 @@
         <Card
           v-for="day in weeklyForecast"
           :key="day.day"
-          :variant="getCardVariant(day.condition)"
+          :variant="getCardVariant(0)"
           class="text-center p-2 transition-all duration-300 ease-[var(--ease-weather)] hover:scale-105"
         >
           <div class="text-sm font-weather font-medium mb-2 text-weather-cloudy-600">
